@@ -1,0 +1,8 @@
+CREATE TABLE `domains` (
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `top` BIGINT UNSIGNED NOT NULL,
+    `second` BIGINT UNSIGNED NOT NULL,
+    `sub` BIGINT UNSIGNED DEFAULT NULL,
+     UNIQUE KEY `id` (`id`),
+     KEY `index` (`id`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
