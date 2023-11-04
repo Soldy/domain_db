@@ -1,6 +1,5 @@
 CREATE TABLE `domain_tags` (
-    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `dialect` BIGINT UNSIGNED NOT NULL,
-     UNIQUE KEY `id` (`id`),
+    `id` SERIAL,
+    `tag` VARCHAR(128),
      KEY `index` (`id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
