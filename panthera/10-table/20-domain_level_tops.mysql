@@ -1,4 +1,5 @@
-CREATE TABLE `domain_second_levels` (
+CREATE TABLE `domain_level_tops` (
     `id` SERIAL,
+    `tag` BIGINT UNSIGNED NOT NULL,
      KEY `index` (`id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
