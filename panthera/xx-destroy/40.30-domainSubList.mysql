@@ -1,0 +1,6 @@
+
+/**
+ * @pview domainSubList
+**/
+
+DROP VIEW IF EXISTS `domainSubList`

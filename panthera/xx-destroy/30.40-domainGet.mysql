@@ -1,0 +1,7 @@
+
+/**
+ * @pprocedure domainGet
+**/
+
+DROP PROCEDURE IF EXISTS `domainGet`;
+

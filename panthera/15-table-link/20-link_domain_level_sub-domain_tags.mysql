@@ -1,0 +1,13 @@
+
+/**
+ * @ptable link_domain_level_sub-domain_tags
+ * @pcol {uint64_t} sub
+ * @pcol {uint16_t} serial
+ * @pcol {uint64_t} tag
+**/
+
+CREATE TABLE `link_domain_level_sub-domain_tags` (
+    `sub` BIGINT UNSIGNED NOT NULL,
+    `serial` INT UNSIGNED NOT NULL,
+    `tag` BIGINT UNSIGNED NOT NULL
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

@@ -1,0 +1,6 @@
+
+/**
+ * @pfunction domain_tagAdd
+**/
+
+DROP FUNCTION IF EXISTS `domain_tagAdd`;

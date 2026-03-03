@@ -1,5 +1,14 @@
+
+/**
+ * @ptable domain_tags
+ * @pcol {string} tag
+**/
+
+
 CREATE TABLE `domain_tags` (
     `id` SERIAL,
-    `tag` VARCHAR(128),
+    `tag` VARCHAR(128)
+      CHARACTER SET utf8
+      COLLATE utf8_unicode_ci,
      KEY `index` (`id`)
 )  ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

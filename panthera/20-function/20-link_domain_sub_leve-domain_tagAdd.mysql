@@ -1,0 +1,29 @@
+
+/**
+ * @pfunction link_domain_level_sub-domain_tagAdd
+ * @pfunction domain_tagAdd
+ * @ptable link_domain_level_sub-domain_tags
+ * @ptable domain_tags
+**/
+
+CREATE OR REPLACE FUNCTION `link_domain_level_sub-domain_tagAdd` (
+    ISUB BIGINT UNSIGNED,
+    ITAG VARCHAR(128),
+    IPOS INT UNSIGNED
+) RETURNS BIGINT MODIFIES SQL DATA
+BEGIN
+    DECLARE tag_id BIGINT UNSIGNED;
+    SELECT `domain_tagAdd`(ITAG)
+      INTO 
+        tag_id;
+    INSERT INTO `link_domain_level_sub-domain_tags` (
+        sub,
+        serial,
+        tag
+      ) VALUES (
+        ISUB,
+        IPOS,
+        tag_id
+      );
+    RETURN 1;
+END;

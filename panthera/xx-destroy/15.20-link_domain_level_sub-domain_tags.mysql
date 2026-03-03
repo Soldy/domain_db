@@ -1,0 +1,6 @@
+
+/**
+ * @ptable link_domain_level_sub-domain_tags
+**/
+
+DROP TABLES IF EXISTS `link_domain_level_sub-domain_tags`;

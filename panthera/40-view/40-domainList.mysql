@@ -1,0 +1,27 @@
+
+/**
+ * @pview domainList
+ * @ptable `link_domain_level_sub-domain_tags`
+ * @ptable `domain_level_subs`
+ * @ptable `domain_level_seconds`
+ * @ptable `domain_level_tops`
+ * @ptable `domain_tags`
+ * @pcol {uint64_t}
+ * @pcol {string}
+**/
+
+CREATE OR REPLACE VIEW domainList AS SELECT 
+    `domains`.`id` AS `id`,
+    CONCAT_WS(
+      '.',
+      `domainSubList`.`tag`,
+      `domainSecondList`.`tag`,
+      `domainTopList`.`tag`
+    ) AS domain
+    FROM `domains`
+    LEFT JOIN `domainSubList`
+      ON `domains`.`sub` =  `domainSubList`.`id`
+    LEFT JOIN `domainSecondList`
+      ON `domains`.`second` =  `domainSecondList`.`id`
+    LEFT JOIN `domainTopList`
+      ON `domains`.`top` =  `domainTopList`.`id`;

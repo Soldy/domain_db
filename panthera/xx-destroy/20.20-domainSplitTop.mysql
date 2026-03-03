@@ -1,0 +1,6 @@
+
+/**
+ * @pfunction domainSplitTop
+**/
+
+DROP FUNCTION IF EXISTS `domainSplitTop`;

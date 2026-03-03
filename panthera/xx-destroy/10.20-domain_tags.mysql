@@ -1,0 +1,6 @@
+
+/**
+ * @ptable link_domain_tags
+**/
+
+DROP TABLES IF EXISTS `domain_tags`;

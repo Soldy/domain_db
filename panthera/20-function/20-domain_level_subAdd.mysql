@@ -1,0 +1,42 @@
+
+/**
+ * @pfunction domain_level_subAdd
+ * @pfunction link_domain_level_sub-domain_tagAdd
+ * @ptable domain_level_subs
+ * @ptable link_domain_level_sub-domain_tags
+ * @ptable domain_tags
+ * @pparam {string} ISUB
+ * @preturn {uint64_t}
+**/
+
+CREATE OR REPLACE FUNCTION `domain_level_subAdd`(
+    ISUB VARCHAR(256)
+      CHARACTER SET utf8
+      COLLATE utf8_unicode_ci
+) RETURNS BIGINT UNSIGNED MODIFIES SQL DATA
+BEGIN
+    DECLARE tag VARCHAR(256);
+    DECLARE sub_id BIGINT UNSIGNED;
+    DECLARE size INT UNSIGNED;
+    DECLARE res INT UNSIGNED;
+    INSERT INTO `domain_level_subs` () VALUES ();
+    SELECT LAST_INSERT_ID() INTO sub_id;
+    SELECT `domainLength`(ISUB) INTO size;
+    IF 1 > size THEN
+        RETURN 0;
+    END IF;
+    WHILE TRUE DO
+        SELECT `domainSplit`(ISUB, size) INTO tag;
+        SELECT `link_domain_level_sub-domain_tagAdd` (
+            sub_id,
+            tag,
+            size
+          )
+          INTO res;
+        SET size = size - 1;
+        IF 1 > size THEN
+            RETURN sub_id;
+        END IF;
+    END WHILE;
+    RETURN sub_id;
+END;

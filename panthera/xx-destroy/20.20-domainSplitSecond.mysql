@@ -1,0 +1,6 @@
+
+/**
+ * @pfunction domainSplitSecond
+**/
+
+DROP FUNCTION IF EXISTS `domainSplitSecond`;

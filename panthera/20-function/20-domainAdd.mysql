@@ -1,0 +1,62 @@
+
+/**
+ * @pfunction domainAdd
+ * @ptable domains
+ * @pparam {string} IDOMAIN
+ * @preturn {uint64_t}
+**/
+
+CREATE OR REPLACE FUNCTION `domainAdd`(
+    IDOMAIN VARCHAR(256)
+      CHARACTER SET utf8
+      COLLATE utf8_unicode_ci
+) RETURNS BIGINT UNSIGNED MODIFIES SQL DATA
+BEGIN
+    DECLARE domain_id BIGINT UNSIGNED;
+    DECLARE top_id BIGINT UNSIGNED;
+    DECLARE sec_id BIGINT UNSIGNED;
+    DECLARE sub_id BIGINT UNSIGNED;
+    DECLARE serial INT UNSIGNED;
+    DECLARE top VARCHAR(256);
+    DECLARE sec VARCHAR(256);
+    DECLARE sub VARCHAR(256);
+    SELECT `domainSplitTop`(IDOMAIN)
+      INTO top;
+    SELECT `domainSplitSecond`(IDOMAIN)
+      INTO sec;
+    SELECT `domainSplitSub`(IDOMAIN)
+      INTO sub;
+    SELECT `domain_level_topAdd`(top)
+      INTO top_id;
+    SELECT `domain_level_secondAdd`(sec)
+      INTO sec_id;
+    SELECT `domain_level_subAdd`(sub)
+      INTO sub_id;
+    IF sub_id = 0 THEN
+        INSERT INTO `domains`
+          (
+             `domains`.`top`,
+             `domains`.`second`
+          )
+          VALUES
+          (
+             top_id,
+             sec_id
+          );
+    ELSE
+        INSERT INTO `domains`
+          (
+             `domains`.`top`,
+             `domains`.`second`,
+             `domains`.`sub`
+          )
+          VALUES
+          (
+             top_id,
+             sec_id,
+             sub_id
+          );
+    END IF;
+    SELECT LAST_INSERT_ID() INTO domain_id;
+    RETURN domain_id;
+END;

@@ -1,3 +1,9 @@
+
+/**
+ * @ptable domain_level_tops
+ * @pcol {uint64_t} tag
+**/
+
 CREATE TABLE `domain_level_tops` (
     `id` SERIAL,
     `tag` BIGINT UNSIGNED NOT NULL,

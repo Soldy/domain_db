@@ -1,0 +1,6 @@
+
+/**
+ * @pfunction domainAdd
+**/
+
+DROP FUNCTION IF EXISTS `domainAdd`;

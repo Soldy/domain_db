@@ -1,0 +1,37 @@
+
+/**
+ * @pfunction domain_level_topAdd
+ * @ptable domain_level_seconds
+ * @ptable domain_tags
+ * @pparam {string} ITOP
+ * @preturn {uint64_t}
+**/
+
+CREATE OR REPLACE FUNCTION `domain_level_topAdd`(
+  ITOP VARCHAR(256)
+      CHARACTER SET utf8
+      COLLATE utf8_unicode_ci
+) RETURNS BIGINT MODIFIES SQL DATA
+BEGIN
+    DECLARE tag_id BIGINT UNSIGNED; 
+    DECLARE top_id BIGINT UNSIGNED; 
+    SELECT `domain_tagAdd`(ITOP)
+      INTO tag_id;
+    SELECT `domain_level_tops`.`id`
+      INTO 
+        top_id
+      FROM 
+        `domain_level_tops`
+       WHERE 
+           `domain_level_tops`.`tag` = tag_id
+       LIMIT 1;
+    IF top_id IS NULL THEN 
+        INSERT INTO `domain_level_tops`(
+           `domain_level_tops`.`tag`
+        ) VALUES (
+           tag_id
+        );
+        SELECT LAST_INSERT_ID() INTO top_id;
+    END IF;
+    RETURN top_id;
+END;

@@ -1,0 +1,15 @@
+
+/**
+ * @pview domainTopList
+ * @ptable `domain_level_tops`
+ * @ptable `domain_tags`
+ * @pcol {uint64_t}
+ * @pcol {string}
+**/
+
+CREATE OR REPLACE VIEW domainTopList AS SELECT 
+        `domain_level_tops`.`id` AS `id`,
+        `domain_tags`.`tag` AS `tag`
+    FROM `domain_level_tops`
+      LEFT JOIN `domain_tags`
+      ON `domain_tags`.`id` =  `domain_level_tops`.`tag`;

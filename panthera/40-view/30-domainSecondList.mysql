@@ -1,0 +1,15 @@
+
+/**
+ * @pview domainSecondList
+ * @ptable `domain_level_seconds`
+ * @ptable `domain_tags`
+ * @pcol {uint64_t}
+ * @pcol {string}
+**/
+
+CREATE OR REPLACE VIEW domainSecondList AS SELECT 
+        `domain_level_seconds`.`id` AS `id`,
+        `domain_tags`.`tag` AS `tag`
+    FROM `domain_level_seconds`
+      LEFT JOIN `domain_tags`
+      ON `domain_tags`.`id` =  `domain_level_seconds`.`tag`;

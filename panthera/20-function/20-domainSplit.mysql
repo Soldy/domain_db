@@ -1,0 +1,28 @@
+
+/**
+ * @pfunction domainSplit
+ * @pparam {string} IDOMAIN
+ * @pparam {uint16_t} IPOS
+ * @preturn {string}
+**/
+
+CREATE OR REPLACE FUNCTION `domainSplit`(
+    IDOMAIN VARCHAR(256)
+      CHARACTER SET utf8
+      COLLATE utf8_unicode_ci,
+    IPOS INT
+) RETURNS VARCHAR(256)
+      CHARACTER SET utf8
+      COLLATE utf8_unicode_ci
+BEGIN
+    DECLARE a INT;
+    SET a = IPOS * -1;
+    RETURN (
+        SELECT
+            SUBSTRING_INDEX(
+                SUBSTRING_INDEX(
+                    LOWER(IDOMAIN), '.', a
+                ),'.', 1
+            )
+    );
+END;

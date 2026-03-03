@@ -1,0 +1,20 @@
+
+/**
+ * @ptable domainGet
+ * @pview domainList
+ * @pparam {int array set} IIDS
+ * @pcol {uint64_t}
+ * @pcol {string}
+**/
+
+CREATE OR REPLACE PROCEDURE domainGet(
+  IIDS VARCHAR(100)
+)
+BEGIN
+    SELECT 
+      `domainList`.`id` AS `id`,
+      `domainList`.`domain` AS `domain`
+    FROM `domainList`
+    WHERE  FIND_IN_SET(`domainList`.`id`, IIDS) > 0;
+END
+

@@ -1,0 +1,6 @@
+
+/**
+ * @pview domainSecondList
+**/
+
+DROP VIEW IF EXISTS `domainSecondList`

@@ -1,0 +1,33 @@
+
+/**
+ * @pfunction domain_tagAdd
+ * @ptable domain_tags
+ * @pparam {string} ITAG
+ * @preturn {uint64_t}
+**/
+
+CREATE OR REPLACE FUNCTION `domain_tagAdd`(
+  ITAG VARCHAR(256)
+      CHARACTER SET utf8
+      COLLATE utf8_unicode_ci
+) RETURNS BIGINT MODIFIES SQL DATA
+BEGIN
+    DECLARE tag_id BIGINT UNSIGNED; 
+    SELECT `domain_tags`.`id`
+      INTO 
+        tag_id
+      FROM 
+        `domain_tags`
+       WHERE 
+        `domain_tags`.`tag` = ITAG
+       LIMIT 1;
+    IF tag_id IS NULL THEN 
+        INSERT INTO `domain_tags`(
+           `domain_tags`.`tag`
+        ) VALUES (
+           ITAG
+        );
+        SELECT LAST_INSERT_ID() INTO tag_id;
+    END IF;
+    RETURN tag_id;
+END;

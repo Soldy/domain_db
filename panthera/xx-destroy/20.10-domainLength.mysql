@@ -1,0 +1,6 @@
+
+/**
+ * @pfunction domainLength
+**/
+
+DROP FUNCTION IF EXISTS `domainLength`

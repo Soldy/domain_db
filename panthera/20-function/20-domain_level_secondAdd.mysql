@@ -1,0 +1,35 @@
+
+/**
+ * @pfunction domain_level_secondAdd
+ * @ptable domain_level_seconds
+ * @ptable domain_tags
+ * @pparam {string} ISECOND
+ * @preturn {uint64_t}
+**/
+
+CREATE OR REPLACE FUNCTION `domain_level_secondAdd`(
+  ISECOND VARCHAR(256)
+) RETURNS BIGINT MODIFIES SQL DATA
+BEGIN
+    DECLARE tag_id BIGINT UNSIGNED; 
+    DECLARE second_id BIGINT UNSIGNED; 
+    SELECT `domain_tagAdd`(ISECOND)
+      INTO tag_id;
+    SELECT `domain_level_seconds`.`id`
+      INTO 
+        second_id
+      FROM 
+        `domain_level_seconds`
+       WHERE 
+           `domain_level_seconds`.`tag` = tag_id
+       LIMIT 1;
+    IF second_id IS NULL THEN 
+        INSERT INTO `domain_level_seconds`(
+           `domain_level_seconds`.`tag`
+        ) VALUES (
+           tag_id
+        );
+        SELECT LAST_INSERT_ID() INTO second_id;
+    END IF;
+    RETURN second_id;
+END;

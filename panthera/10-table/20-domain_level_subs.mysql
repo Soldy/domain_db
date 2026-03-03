@@ -1,3 +1,9 @@
+
+/**
+ * @ptable domain_level_subs
+ * @pcol {uint64_t} tag
+**/
+
 CREATE TABLE `domain_level_subs` (
     `id` SERIAL,
      KEY `index` (`id`)

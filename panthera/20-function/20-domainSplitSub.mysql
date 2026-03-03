@@ -1,0 +1,27 @@
+
+/**
+ * @pfunction domainSplitSub
+ * @pparam {string} IDOMAIN
+ * @preturn {string}
+**/
+
+CREATE OR REPLACE FUNCTION `domainSplitSub`(
+    IDOMAIN VARCHAR(256)
+      CHARACTER SET utf8
+      COLLATE utf8_unicode_ci
+) RETURNS VARCHAR(256)
+      CHARACTER SET utf8
+      COLLATE utf8_unicode_ci
+BEGIN
+    DECLARE len_d INT;
+    SELECT domainLength(IDOMAIN) INTO len_d;
+    SET len_d = len_d - 2;
+    RETURN (
+        SELECT
+            SUBSTRING_INDEX(
+                SUBSTRING_INDEX(
+                    LOWER(IDOMAIN), '.', len_d
+                ),'.', len_d
+            )
+    );
+END;

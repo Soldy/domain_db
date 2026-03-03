@@ -1,0 +1,20 @@
+
+/**
+ * @ptable domainSearch
+ * @pview domainList
+ * @pparam {string} IDOMAIN
+ * @pcol {uint64_t}
+ * @pcol {string}
+**/
+
+CREATE OR REPLACE PROCEDURE domainSearch(
+  IDOMAIN VARCHAR(100)
+)
+BEGIN
+    SELECT 
+      `domainList`.`id` AS `id`,
+      `domainList`.`domain` AS `domain`
+    FROM `domainList`
+    WHERE `domainList`.`domain` LIKE CONCAT('%', IDOMAIN, '%');
+END
+

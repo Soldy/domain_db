@@ -1,0 +1,23 @@
+
+/**
+ * @pview domainSubList
+ * @ptable `link_domain_level_sub-domain_tags`
+ * @ptable `domain_level_subs`
+ * @ptable `domain_tags`
+ * @pcol {uint64_t}
+ * @pcol {string}
+**/
+
+CREATE OR REPLACE VIEW domainSubList AS SELECT 
+      `domain_level_subs`.`id` AS `id`,
+      GROUP_CONCAT(
+        `domain_tags`.`tag`
+        ORDER BY `link_domain_level_sub-domain_tags`.`serial` DESC
+        SEPARATOR '.'
+      ) AS tag
+    FROM `domain_level_subs`
+    LEFT JOIN `link_domain_level_sub-domain_tags`
+      ON `link_domain_level_sub-domain_tags`.`sub` = `domain_level_subs`.`id`
+    LEFT JOIN `domain_tags`
+      ON `domain_tags`.`id` =  `link_domain_level_sub-domain_tags`.`tag`
+    GROUP BY `link_domain_level_sub-domain_tags`.`sub`;
